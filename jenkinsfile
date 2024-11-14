@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+    environment {
+        name = "ansul"
+    }
+    parameters {
+        string(name: 'person', defaultValue: 'Anaul')
+    }
+    stages {
+        stage('run_a_command') {
+            steps {
+                sh 'date'
+                sh 'pwd'
+            }
+        }
+        stage('Environment_variable') {
+            steps {
+                echo "${env.name}"   
+                echo "${person}"      
+            }
+        }
+        stage('deploy on test') {
+            steps {
+                echo 'deploy test'
+            }
+        }
+        stage('deploy on prod') {
+            steps {
+                echo2 'deploy on prod'
+            }
+        }
+    }
+    post { 
+        always { 
+            echo 'I will always say Hello again!'
+        }
+    }
+}
